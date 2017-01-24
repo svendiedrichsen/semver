@@ -1,2 +1,2 @@
 # semver
-Semantic Versioning
+Semantic Versioning Java API
