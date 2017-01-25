@@ -1,2 +1,2 @@
-# semver
-Semantic Versioning Java API
+# SemVer
+Semantic Versioning 2.0.0 compliant Java API
