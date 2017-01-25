@@ -36,15 +36,27 @@ public class Version implements Serializable {
     }
 
     public Version nextMajor() {
-        return new Version(new MajorVersion(majorVersion.getValue() + 1), new MinorVersion(0), new PatchVersion(0));
+        return incMajor(1);
+    }
+
+    public Version incMajor(long value) {
+        return new Version(new MajorVersion(majorVersion.getValue() + value), new MinorVersion(0), new PatchVersion(0));
     }
 
     public Version nextMinor() {
-        return new Version(majorVersion, new MinorVersion(minorVersion.getValue() + 1), new PatchVersion(0));
+        return incMinor(1);
+    }
+
+    public Version incMinor(long value) {
+        return new Version(majorVersion, new MinorVersion(minorVersion.getValue() + value), new PatchVersion(0));
     }
 
     public Version nextPatch() {
-        return new Version(majorVersion, minorVersion, new PatchVersion(patchVersion.getValue() + 1));
+        return incPatch(1);
+    }
+
+    public Version incPatch(long value) {
+        return new Version(majorVersion, minorVersion, new PatchVersion(patchVersion.getValue() + value));
     }
 
     @Override
