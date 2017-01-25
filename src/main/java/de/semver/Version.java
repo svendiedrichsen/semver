@@ -13,17 +13,17 @@ public class Version implements Serializable {
     private MinorVersion minorVersion;
     private PatchVersion patchVersion;
 
-    public Version(){
+    public Version() {
         this(new MajorVersion(), new MinorVersion(), new PatchVersion());
     }
 
-    private Version(MajorVersion majorVersion, MinorVersion minorVersion, PatchVersion patchVersion){
+    private Version(MajorVersion majorVersion, MinorVersion minorVersion, PatchVersion patchVersion) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
         this.patchVersion = patchVersion;
     }
 
-    public Version major(long value){
+    public Version major(long value) {
         return new Version(new MajorVersion(value), minorVersion, patchVersion);
     }
 
@@ -33,6 +33,18 @@ public class Version implements Serializable {
 
     public Version patch(long value) {
         return new Version(majorVersion, minorVersion, new PatchVersion(value));
+    }
+
+    public Version nextMajor() {
+        return new Version(new MajorVersion(majorVersion.getValue() + 1), new MinorVersion(0), new PatchVersion(0));
+    }
+
+    public Version nextMinor() {
+        return new Version(majorVersion, new MinorVersion(minorVersion.getValue() + 1), new PatchVersion(0));
+    }
+
+    public Version nextPatch() {
+        return new Version(majorVersion, minorVersion, new PatchVersion(patchVersion.getValue() + 1));
     }
 
     @Override

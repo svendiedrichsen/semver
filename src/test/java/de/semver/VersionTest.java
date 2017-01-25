@@ -45,4 +45,22 @@ public class VersionTest {
         assertNotSame(v1, v2, "After setting patch version the version instance is the same.");
     }
 
+    @Test
+    public void testNextMajorVersion() throws Exception {
+        Version v1 = new Version().major(1).patch(1).nextMajor();
+        assertEquals(v1.toString(), "2.0.0", "Found wrong version increasing major version.");
+    }
+
+    @Test
+    public void testNextMinorVersion() throws Exception {
+        Version v1 = new Version().major(1).patch(1).nextMinor();
+        assertEquals(v1.toString(), "1.2.0", "Found wrong version increasing minor version.");
+    }
+
+    @Test
+    public void testNextPatchVersion() throws Exception {
+        Version v1 = new Version().major(1).patch(1).nextPatch();
+        assertEquals(v1.toString(), "1.1.2", "Found wrong version increasing patch version.");
+    }
+
 }
