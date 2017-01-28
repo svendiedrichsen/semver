@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class Version implements Serializable {
 
+    private static final String SEGMENT_SEPARATOR = ".";
     private MajorVersion majorVersion;
     private MinorVersion minorVersion;
     private PatchVersion patchVersion;
@@ -40,7 +41,7 @@ public class Version implements Serializable {
     }
 
     public Version incMajor(long value) {
-        return new Version(new MajorVersion(majorVersion.getValue() + value), new MinorVersion(0), new PatchVersion(0));
+        return new Version(majorVersion.inc(value), new MinorVersion(0), new PatchVersion(0));
     }
 
     public Version nextMinor() {
@@ -48,7 +49,7 @@ public class Version implements Serializable {
     }
 
     public Version incMinor(long value) {
-        return new Version(majorVersion, new MinorVersion(minorVersion.getValue() + value), new PatchVersion(0));
+        return new Version(majorVersion, minorVersion.inc(value), new PatchVersion(0));
     }
 
     public Version nextPatch() {
@@ -56,12 +57,12 @@ public class Version implements Serializable {
     }
 
     public Version incPatch(long value) {
-        return new Version(majorVersion, minorVersion, new PatchVersion(patchVersion.getValue() + value));
+        return new Version(majorVersion, minorVersion, patchVersion.inc(value));
     }
 
     @Override
     public String toString() {
-        return majorVersion.toString() + "." + minorVersion.toString() + "." + patchVersion.toString();
+        return majorVersion.toString() + SEGMENT_SEPARATOR + minorVersion.toString() + SEGMENT_SEPARATOR + patchVersion.toString();
     }
 
 }

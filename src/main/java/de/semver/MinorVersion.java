@@ -10,4 +10,8 @@ class MinorVersion extends VersionPart {
         super(value);
     }
 
+    MinorVersion inc(long value) {
+        return new MinorVersion(this.getValue() + value);
+    }
+
 }

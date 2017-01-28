@@ -10,4 +10,8 @@ class MajorVersion extends VersionPart {
         super(value);
     }
 
+    MajorVersion inc(long value) {
+        return new MajorVersion(this.getValue() + value);
+    }
+
 }

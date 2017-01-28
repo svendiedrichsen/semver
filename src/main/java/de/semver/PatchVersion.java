@@ -10,4 +10,8 @@ class PatchVersion extends VersionPart {
         super(value);
     }
 
+    PatchVersion inc(long value) {
+        return new PatchVersion(this.getValue() + value);
+    }
+
 }
