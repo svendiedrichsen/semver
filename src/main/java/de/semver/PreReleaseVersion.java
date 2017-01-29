@@ -1,9 +1,9 @@
 package de.semver;
 
-/**
- * @author sdiedrichsen
- * @version $Id$
- * @since 28.01.17
- */
-public class PreReleaseVersion {
+class PreReleaseVersion extends AlphaNumericalVersionPart {
+
+    PreReleaseVersion(String value) {
+        super(value);
+    }
+
 }

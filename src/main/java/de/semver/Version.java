@@ -3,6 +3,11 @@ package de.semver;
 import java.io.Serializable;
 
 /**
+ * This class represents a semantic version. It conforms with version 2.0.0 of the
+ * semantic version spec http://semver.org/ .
+ *
+ * Instances of this class are immutable and thus thread-safe.
+ *
  * @author sdiedrichsen
  * @version $Id$
  * @since 25.01.17
@@ -10,9 +15,14 @@ import java.io.Serializable;
 public class Version implements Serializable {
 
     private static final String SEGMENT_SEPARATOR = ".";
+    private static final String PRERELEASE_SEPARATOR = "-";
+    private static final String METADATA_SEPARATOR = "+";
+
     private MajorVersion majorVersion;
     private MinorVersion minorVersion;
     private PatchVersion patchVersion;
+    private PreReleaseVersion preReleaseVersion;
+    private BuildMetadata buildMetadata;
 
     public Version() {
         this(new MajorVersion(), new MinorVersion(), new PatchVersion());
@@ -62,7 +72,11 @@ public class Version implements Serializable {
 
     @Override
     public String toString() {
-        return majorVersion.toString() + SEGMENT_SEPARATOR + minorVersion.toString() + SEGMENT_SEPARATOR + patchVersion.toString();
+        return majorVersion.toString()
+                + SEGMENT_SEPARATOR + minorVersion
+                + SEGMENT_SEPARATOR + patchVersion
+                + ( preReleaseVersion != null ? PRERELEASE_SEPARATOR + preReleaseVersion : "" )
+                + ( buildMetadata != null ? METADATA_SEPARATOR + buildMetadata : "");
     }
 
 }

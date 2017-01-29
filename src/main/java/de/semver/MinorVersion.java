@@ -1,6 +1,6 @@
 package de.semver;
 
-class MinorVersion extends VersionPart {
+class MinorVersion extends NumericalVersionPart {
 
     MinorVersion(){
         this(1);

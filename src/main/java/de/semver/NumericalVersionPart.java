@@ -2,16 +2,11 @@ package de.semver;
 
 import java.io.Serializable;
 
-/**
- * @author sdiedrichsen
- * @version $Id$
- * @since 25.01.17
- */
-abstract class VersionPart implements Serializable {
+abstract class NumericalVersionPart implements Serializable {
 
     private long value;
 
-    protected VersionPart(long value) {
+    protected NumericalVersionPart(long value) {
         this.value = value;
     }
 
