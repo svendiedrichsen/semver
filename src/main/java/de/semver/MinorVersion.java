@@ -1,6 +1,6 @@
 package de.semver;
 
-class MinorVersion extends NumericalVersionPart {
+class MinorVersion extends NumericalVersionPart implements Compatible<MinorVersion> {
 
     MinorVersion(){
         this(1);
@@ -14,4 +14,8 @@ class MinorVersion extends NumericalVersionPart {
         return new MinorVersion(this.getValue() + value);
     }
 
+    @Override
+    public boolean isCompatibleWith(MinorVersion other) {
+        return getValue() <= other.getValue();
+    }
 }

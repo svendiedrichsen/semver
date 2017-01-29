@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @version $Id$
  * @since 25.01.17
  */
-public class Version implements Serializable {
+public class Version implements Serializable, Compatible<Version> {
 
     private static final String SEGMENT_SEPARATOR = ".";
     private static final String PRERELEASE_SEPARATOR = "-";
@@ -79,6 +79,13 @@ public class Version implements Serializable {
                 + SEGMENT_SEPARATOR + patchVersion
                 + ( preReleaseVersion != null ? PRERELEASE_SEPARATOR + preReleaseVersion : "" )
                 + ( buildMetadata != null ? METADATA_SEPARATOR + buildMetadata : "");
+    }
+
+    @Override
+    public boolean isCompatibleWith(Version other) {
+        return majorVersion.isCompatibleWith(other.majorVersion)
+                && minorVersion.isCompatibleWith(other.minorVersion)
+                && patchVersion.isCompatibleWith(other.patchVersion);
     }
 
 }

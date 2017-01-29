@@ -19,6 +19,7 @@ public class VersionParserTest {
                 {"3.2.1-SNAPSHOT"},
                 {"3.2.1+META.2.3"},
                 {"3.2.1-BETA.1+12345.23"},
+                {"3.2.1-BETA-4.1+12345.23-3"},
         };
     }
 
