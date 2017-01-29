@@ -25,25 +25,27 @@ public class Version implements Serializable {
     private BuildMetadata buildMetadata;
 
     public Version() {
-        this(new MajorVersion(), new MinorVersion(), new PatchVersion());
+        this(new MajorVersion(), new MinorVersion(), new PatchVersion(), null, null);
     }
 
-    private Version(MajorVersion majorVersion, MinorVersion minorVersion, PatchVersion patchVersion) {
+    public Version(MajorVersion majorVersion, MinorVersion minorVersion, PatchVersion patchVersion, PreReleaseVersion preReleaseVersion, BuildMetadata buildMetadata) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
         this.patchVersion = patchVersion;
+        this.preReleaseVersion = preReleaseVersion;
+        this.buildMetadata = buildMetadata;
     }
 
     public Version major(long value) {
-        return new Version(new MajorVersion(value), minorVersion, patchVersion);
+        return new Version(new MajorVersion(value), minorVersion, patchVersion, preReleaseVersion, buildMetadata);
     }
 
     public Version minor(long value) {
-        return new Version(majorVersion, new MinorVersion(value), patchVersion);
+        return new Version(majorVersion, new MinorVersion(value), patchVersion, preReleaseVersion, buildMetadata);
     }
 
     public Version patch(long value) {
-        return new Version(majorVersion, minorVersion, new PatchVersion(value));
+        return new Version(majorVersion, minorVersion, new PatchVersion(value), preReleaseVersion, buildMetadata);
     }
 
     public Version nextMajor() {
@@ -51,7 +53,7 @@ public class Version implements Serializable {
     }
 
     public Version incMajor(long value) {
-        return new Version(majorVersion.inc(value), new MinorVersion(0), new PatchVersion(0));
+        return new Version(majorVersion.inc(value), new MinorVersion(0), new PatchVersion(0), null, null);
     }
 
     public Version nextMinor() {
@@ -59,7 +61,7 @@ public class Version implements Serializable {
     }
 
     public Version incMinor(long value) {
-        return new Version(majorVersion, minorVersion.inc(value), new PatchVersion(0));
+        return new Version(majorVersion, minorVersion.inc(value), new PatchVersion(0), null, null);
     }
 
     public Version nextPatch() {
@@ -67,7 +69,7 @@ public class Version implements Serializable {
     }
 
     public Version incPatch(long value) {
-        return new Version(majorVersion, minorVersion, patchVersion.inc(value));
+        return new Version(majorVersion, minorVersion, patchVersion.inc(value), null, null);
     }
 
     @Override
