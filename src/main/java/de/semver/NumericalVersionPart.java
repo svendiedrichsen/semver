@@ -1,8 +1,8 @@
 package de.semver;
 
-import java.io.Serializable;
+class NumericalVersionPart implements VersionPart<NumericalVersionPart, Long> {
 
-abstract class NumericalVersionPart implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private long value;
 
@@ -10,13 +10,18 @@ abstract class NumericalVersionPart implements Serializable {
         this.value = value;
     }
 
-    public long getValue(){
+    public Long getValue() {
         return value;
     }
 
     @Override
     public String toString() {
         return Long.toString(value);
+    }
+
+    @Override
+    public int compareTo(NumericalVersionPart o) {
+        return Long.valueOf(getValue()).compareTo(o.getValue());
     }
 
 }

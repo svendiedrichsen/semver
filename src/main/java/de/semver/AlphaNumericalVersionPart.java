@@ -1,8 +1,8 @@
 package de.semver;
 
-import java.io.Serializable;
+class AlphaNumericalVersionPart implements VersionPart<AlphaNumericalVersionPart, String> {
 
-class AlphaNumericalVersionPart implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String value;
 
@@ -19,4 +19,8 @@ class AlphaNumericalVersionPart implements Serializable {
         return value;
     }
 
+    @Override
+    public int compareTo(AlphaNumericalVersionPart o) {
+        return value.compareTo(o.getValue());
+    }
 }

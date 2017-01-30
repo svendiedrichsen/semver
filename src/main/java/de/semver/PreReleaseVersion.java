@@ -2,19 +2,16 @@ package de.semver;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class PreReleaseVersion implements Serializable {
 
-    private List<AlphaNumericalVersionPart> parts;
+    private List<VersionPart> parts;
 
-    PreReleaseVersion(String... segments) {
-        parts = new ArrayList<>();
-        for (String segment : segments) {
-            parts.add(new AlphaNumericalVersionPart(segment));
-        }
+    PreReleaseVersion(VersionPart... segments) {
+        parts = new ArrayList<>(Arrays.asList(segments));
     }
-
 
     @Override
     public String toString() {
