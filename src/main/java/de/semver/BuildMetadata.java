@@ -13,6 +13,10 @@ class BuildMetadata implements Serializable {
         parts = new ArrayList<>(Arrays.asList(segments));
     }
 
+    public int size() {
+        return parts.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

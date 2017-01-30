@@ -2,6 +2,6 @@ package de.semver;
 
 import java.io.Serializable;
 
-interface VersionPart<T, U> extends Comparable<T>, Serializable {
+interface VersionPart<U> extends Comparable<VersionPart<U>>, Serializable {
     U getValue();
 }

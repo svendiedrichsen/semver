@@ -1,6 +1,6 @@
 package de.semver;
 
-class NumericalVersionPart implements VersionPart<NumericalVersionPart, Long> {
+class NumericalVersionPart implements VersionPart<Long> {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,6 +10,7 @@ class NumericalVersionPart implements VersionPart<NumericalVersionPart, Long> {
         this.value = value;
     }
 
+    @Override
     public Long getValue() {
         return value;
     }
@@ -20,8 +21,14 @@ class NumericalVersionPart implements VersionPart<NumericalVersionPart, Long> {
     }
 
     @Override
-    public int compareTo(NumericalVersionPart o) {
-        return Long.valueOf(getValue()).compareTo(o.getValue());
+    public int compareTo(VersionPart o) {
+        Object otherValue = o.getValue();
+        if (otherValue instanceof Number) {
+            return Long.valueOf(value).compareTo(((Number) otherValue).longValue());
+        } else if (otherValue instanceof String) {
+            return -1;
+        }
+        throw new IllegalArgumentException("Cannot compare " + o.getClass().getSimpleName() + " value with " + this.getClass().getSimpleName() + " value.");
     }
 
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @version $Id$
  * @since 25.01.17
  */
-public class Version implements Serializable, Compatible<Version> {
+public class Version implements Serializable, Compatible<Version>, Comparable<Version> {
 
     private static final String SEGMENT_SEPARATOR = ".";
     private static final String PRERELEASE_SEPARATOR = "-";
@@ -86,6 +86,42 @@ public class Version implements Serializable, Compatible<Version> {
         return majorVersion.isCompatibleWith(other.majorVersion)
                 && minorVersion.isCompatibleWith(other.minorVersion)
                 && patchVersion.isCompatibleWith(other.patchVersion);
+    }
+
+    @Override
+    public int compareTo(Version o) {
+        int result = majorVersion.compareTo(o.majorVersion);
+        if (result == 0) {
+            result = minorVersion.compareTo(o.minorVersion);
+        }
+        if (result == 0) {
+            result = patchVersion.compareTo(o.patchVersion);
+        }
+        if (result == 0) {
+            result = comparePreReleaseVersions(preReleaseVersion, o.preReleaseVersion);
+        }
+        return result;
+    }
+
+    private static int comparePreReleaseVersions(PreReleaseVersion current, PreReleaseVersion other) {
+        int result = 0;
+        if (current != null && other != null) {
+            result = current.compareTo(other);
+            if (result == 0) {
+                if (current.size() < other.size()) {
+                    result = 1;
+                } else if (current.size() > other.size()) {
+                    result = -1;
+                }
+            }
+        } else {
+            if (current == null && other != null) {
+                result = 1;
+            } else if (current != null && other == null) {
+                result = -1;
+            }
+        }
+        return result;
     }
 
 }
