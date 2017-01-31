@@ -1,4 +1,4 @@
-package de.semver;
+package de.semver.parts;
 
 import java.io.Serializable;
 

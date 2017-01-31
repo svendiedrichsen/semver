@@ -1,4 +1,4 @@
-package de.semver;
+package de.semver.parts;
 
 class NumericalVersionPart implements VersionPart<Long> {
 

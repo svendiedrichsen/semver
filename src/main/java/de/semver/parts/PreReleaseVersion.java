@@ -1,15 +1,15 @@
-package de.semver;
+package de.semver.parts;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class PreReleaseVersion implements Serializable, Comparable<PreReleaseVersion> {
+public class PreReleaseVersion implements Serializable, Comparable<PreReleaseVersion> {
 
     private List<VersionPart> parts;
 
-    PreReleaseVersion(VersionPart... segments) {
+    public PreReleaseVersion(VersionPart... segments) {
         parts = new ArrayList<>(Arrays.asList(segments));
     }
 
@@ -35,7 +35,7 @@ class PreReleaseVersion implements Serializable, Comparable<PreReleaseVersion> {
         return result;
     }
 
-    static class Builder {
+    public static class Builder {
 
         private List<VersionPart> parts = new ArrayList<>();
 

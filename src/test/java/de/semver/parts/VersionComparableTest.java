@@ -1,5 +1,6 @@
-package de.semver;
+package de.semver.parts;
 
+import de.semver.Version;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

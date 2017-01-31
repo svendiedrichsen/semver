@@ -1,15 +1,15 @@
-package de.semver;
+package de.semver.parts;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class BuildMetadata implements Serializable {
+public class BuildMetadata implements Serializable {
 
     private List<VersionPart> parts;
 
-    BuildMetadata(VersionPart... segments) {
+    public BuildMetadata(VersionPart... segments) {
         parts = new ArrayList<>(Arrays.asList(segments));
     }
 
@@ -22,7 +22,7 @@ class BuildMetadata implements Serializable {
         return VersionUtil.toString(parts);
     }
 
-    static class Builder {
+    public static class Builder {
 
         private List<VersionPart> parts = new ArrayList<>();
 

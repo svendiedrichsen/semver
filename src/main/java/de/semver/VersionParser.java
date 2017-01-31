@@ -1,5 +1,7 @@
 package de.semver;
 
+import de.semver.parts.*;
+
 /**
  * Parses string version representation to a {@link Version} instance.
  *

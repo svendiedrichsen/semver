@@ -1,5 +1,7 @@
 package de.semver;
 
+import de.semver.parts.*;
+
 import java.io.Serializable;
 
 /**
