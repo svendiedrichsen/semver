@@ -19,14 +19,23 @@ class BuildMetadata implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < parts.size(); i++) {
-            builder.append(parts.get(i).getValue());
-            if (i < parts.size() - 1) {
-                builder.append(".");
-            }
-        }
-        return builder.toString();
+        return VersionUtil.toString(parts);
     }
+
+    static class Builder {
+
+        private List<VersionPart> parts = new ArrayList<>();
+
+        public Builder add(String version) {
+            parts.addAll(VersionUtil.toVersionParts(version));
+            return this;
+        }
+
+        public BuildMetadata build() {
+            return new BuildMetadata(parts.toArray(new VersionPart[parts.size()]));
+        }
+
+    }
+
 
 }

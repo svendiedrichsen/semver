@@ -19,14 +19,7 @@ class PreReleaseVersion implements Serializable, Comparable<PreReleaseVersion> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < parts.size(); i++) {
-            builder.append(parts.get(i).getValue());
-            if (i < parts.size() - 1) {
-                builder.append(".");
-            }
-        }
-        return builder.toString();
+        return VersionUtil.toString(parts);
     }
 
     @Override
@@ -40,5 +33,20 @@ class PreReleaseVersion implements Serializable, Comparable<PreReleaseVersion> {
             result = parts.size() > o.parts.size() ? 1 : -1;
         }
         return result;
+    }
+
+    static class Builder {
+
+        private List<VersionPart> parts = new ArrayList<>();
+
+        public Builder add(String version) {
+            parts.addAll(VersionUtil.toVersionParts(version));
+            return this;
+        }
+
+        public PreReleaseVersion build() {
+            return new PreReleaseVersion(parts.toArray(new VersionPart[parts.size()]));
+        }
+
     }
 }

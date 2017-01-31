@@ -9,7 +9,6 @@ package de.semver;
  */
 public class VersionParser {
 
-    private static final String SEGMENT_SEPARATOR = "\\.";
     private static final String PRERELEASE_SEPARATOR = "-";
     private static final String METADATA_SEPARATOR = "+";
 
@@ -45,9 +44,9 @@ public class VersionParser {
             targetIndex = metadataIndex;
         }
         if(targetIndex == -1){
-            return split(version);
+            return VersionUtil.split(version);
         }
-        return split(version.substring(0, targetIndex));
+        return VersionUtil.split(version.substring(0, targetIndex));
     }
 
     private PreReleaseVersion getPreReleasePart() {
@@ -55,9 +54,9 @@ public class VersionParser {
         if(preReleaseIndex > -1){
             final int metadataIndex = getMetadataIndex();
             if(metadataIndex > -1){
-                return new PreReleaseVersion(toVersionParts(split(version.substring(preReleaseIndex + 1, metadataIndex))));
+                return new PreReleaseVersion.Builder().add(version.substring(preReleaseIndex + 1, metadataIndex)).build();
             }
-            return new PreReleaseVersion(toVersionParts(split(version.substring(preReleaseIndex + 1))));
+            return new PreReleaseVersion.Builder().add(version.substring(preReleaseIndex + 1)).build();
         }
         return null;
     }
@@ -65,32 +64,9 @@ public class VersionParser {
     private BuildMetadata getMetadataPart() {
         final int metadataIndex = getMetadataIndex();
         if (metadataIndex > -1) {
-            return new BuildMetadata(toVersionParts(split(version.substring(metadataIndex + 1))));
+            return new BuildMetadata.Builder().add(version.substring(metadataIndex + 1)).build();
         }
         return null;
-    }
-
-    private static VersionPart[] toVersionParts(String... strSegments) {
-        VersionPart[] parts = new VersionPart[strSegments.length];
-        for (int i = 0; i < strSegments.length; i++) {
-            parts[i] = isNumerical(strSegments[i])
-                    ? new NumericalVersionPart(Long.valueOf(strSegments[i]))
-                    : new AlphaNumericalVersionPart(strSegments[i]);
-        }
-        return parts;
-    }
-
-    private static boolean isNumerical(String s) {
-        for (char c : s.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static String[] split(String value){
-        return value.split(SEGMENT_SEPARATOR);
     }
 
     private int getMetadataIndex() {
