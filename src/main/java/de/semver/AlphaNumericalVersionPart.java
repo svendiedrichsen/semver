@@ -26,7 +26,13 @@ class AlphaNumericalVersionPart implements VersionPart<String> {
         if (otherValue instanceof Number) {
             return 1;
         } else if (otherValue instanceof String) {
-            return value.compareTo((String) otherValue);
+            int result = value.compareTo((String) otherValue);
+            if (result < 0) {
+                result = -1;
+            } else if (result > 0) {
+                result = 1;
+            }
+            return result;
         }
         throw new IllegalArgumentException("Cannot compare " + o.getClass().getSimpleName() + " value with " + this.getClass().getSimpleName() + " value.");
     }

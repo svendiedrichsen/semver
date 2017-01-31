@@ -108,11 +108,7 @@ public class Version implements Serializable, Compatible<Version>, Comparable<Ve
         if (current != null && other != null) {
             result = current.compareTo(other);
             if (result == 0) {
-                if (current.size() < other.size()) {
-                    result = 1;
-                } else if (current.size() > other.size()) {
-                    result = -1;
-                }
+                result = Integer.valueOf(current.size()).compareTo(other.size());
             }
         } else {
             if (current == null && other != null) {
