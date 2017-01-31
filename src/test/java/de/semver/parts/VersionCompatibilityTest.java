@@ -12,38 +12,38 @@ public class VersionCompatibilityTest {
     public Object[][] createVersions() {
         return new Object[][]{
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
+                        new Version.Builder(2, 3, 1).build(),
+                        new Version.Builder(2, 3, 1).build(),
                         true
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
+                        new Version.Builder(2, 3, 2).build(),
+                        new Version.Builder(2, 3, 1).build(),
                         true
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 3, 1).build(),
+                        new Version.Builder(2, 3, 2).build(),
                         true
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(2), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 2, 2).build(),
+                        new Version.Builder(2, 3, 2).build(),
                         true
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(2), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 3, 2).build(),
+                        new Version.Builder(2, 2, 2).build(),
                         false
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(1, 3, 2).build(),
+                        new Version.Builder(2, 3, 2).build(),
                         false
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(1), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 3, 2).build(),
+                        new Version.Builder(1, 3, 2).build(),
                         false
                 }
         };

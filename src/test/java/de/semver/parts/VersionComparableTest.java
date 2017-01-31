@@ -17,77 +17,75 @@ public class VersionComparableTest {
     public Object[][] createVersions() {
         return new Object[][]{
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
+                        new Version.Builder(2, 3, 1).build(),
+                        new Version.Builder(2, 3, 1).build(),
                         0
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
+                        new Version.Builder(2, 3, 2).build(),
+                        new Version.Builder(2, 3, 1).build(),
                         1
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(1), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 3, 1).build(),
+                        new Version.Builder(2, 3, 2).build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(2), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 2, 2).build(),
+                        new Version.Builder(2, 3, 2).build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(2), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 3, 2).build(),
+                        new Version.Builder(2, 2, 2).build(),
                         1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(1, 3, 2).build(),
+                        new Version.Builder(2, 3, 2).build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(2), new MinorVersion(3), new PatchVersion(2), null, null),
-                        new Version(new MajorVersion(1), new MinorVersion(3), new PatchVersion(2), null, null),
+                        new Version.Builder(2, 3, 2).build(),
+                        new Version.Builder(1, 3, 2).build(),
                         1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("alpha")), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("alpha"), new NumericalVersionPart(1)), null),
+                        new Version.Builder(1, 0, 0).preRelease("alpha").build(),
+                        new Version.Builder(1, 0, 0).preRelease("alpha.1").build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("alpha"), new NumericalVersionPart(1)), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("alpha"), new AlphaNumericalVersionPart("beta")), null),
+                        new Version.Builder(1, 0, 0).preRelease("alpha.1").build(),
+                        new Version.Builder(1, 0, 0).preRelease("alpha.beta").build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("alpha"), new AlphaNumericalVersionPart("beta")), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("beta")), null),
+                        new Version.Builder(1, 0, 0).preRelease("alpha.beta").build(),
+                        new Version.Builder(1, 0, 0).preRelease("beta").build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("beta")), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("beta"), new NumericalVersionPart(2)), null),
+                        new Version.Builder(1, 0, 0).preRelease("beta").build(),
+                        new Version.Builder(1, 0, 0).preRelease("beta.2").build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("beta"), new NumericalVersionPart(2)), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("beta"), new NumericalVersionPart(11)), null),
+                        new Version.Builder(1, 0, 0).preRelease("beta.2").build(),
+                        new Version.Builder(1, 0, 0).preRelease("beta.11").build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("beta"), new NumericalVersionPart(11)), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("rc"), new NumericalVersionPart(1)), null),
+                        new Version.Builder(1, 0, 0).preRelease("beta.11").build(),
+                        new Version.Builder(1, 0, 0).preRelease("rc.1").build(),
                         -1
                 },
                 {
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), new PreReleaseVersion(new AlphaNumericalVersionPart("rc"), new NumericalVersionPart(1)), null),
-                        new Version(new MajorVersion(1), new MinorVersion(0), new PatchVersion(0), null, null),
+                        new Version.Builder(1, 0, 0).preRelease("rc.1").build(),
+                        new Version.Builder(1, 0, 0).build(),
                         -1
                 }
-
-
         };
     }
 

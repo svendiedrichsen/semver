@@ -26,11 +26,11 @@ public class Version implements Serializable, Compatible<Version>, Comparable<Ve
     private PreReleaseVersion preReleaseVersion;
     private BuildMetadata buildMetadata;
 
-    public Version() {
+    private Version() {
         this(new MajorVersion(), new MinorVersion(), new PatchVersion(), null, null);
     }
 
-    public Version(MajorVersion majorVersion, MinorVersion minorVersion, PatchVersion patchVersion, PreReleaseVersion preReleaseVersion, BuildMetadata buildMetadata) {
+    private Version(MajorVersion majorVersion, MinorVersion minorVersion, PatchVersion patchVersion, PreReleaseVersion preReleaseVersion, BuildMetadata buildMetadata) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
         this.patchVersion = patchVersion;
