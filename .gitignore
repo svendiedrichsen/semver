@@ -2,6 +2,9 @@
 .idea/
 *.iml
 
+# OS X
+.DS_Store
+
 # Maven
 target/
 pom.xml.tag
