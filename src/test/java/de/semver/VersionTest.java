@@ -13,7 +13,7 @@ public class VersionTest {
     @Test
     public void testVersionSerializable() throws Exception {
         try(ObjectOutputStream out = new ObjectOutputStream(new ByteArrayOutputStream())){
-            out.writeObject(new Version.Builder().build());
+            out.writeObject(new Version.Builder().preRelease("alpha").buildMetadata("12").build());
         }
     }
 
