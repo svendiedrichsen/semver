@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * This class represents a semantic version. It conforms with version 2.0.0 of the
  * semantic version spec http://semver.org/ .
- *
+ * <p>
  * Instances of this class are immutable and thus thread-safe.
  *
  * @author sdiedrichsen
@@ -79,8 +79,8 @@ public class Version implements Serializable, Compatible<Version>, Comparable<Ve
         return majorVersion.toString()
                 + SEGMENT_SEPARATOR + minorVersion
                 + SEGMENT_SEPARATOR + patchVersion
-                + ( preReleaseVersion != null ? PRERELEASE_SEPARATOR + preReleaseVersion : "" )
-                + ( buildMetadata != null ? METADATA_SEPARATOR + buildMetadata : "");
+                + (preReleaseVersion != null ? PRERELEASE_SEPARATOR + preReleaseVersion : "")
+                + (buildMetadata != null ? METADATA_SEPARATOR + buildMetadata : "");
     }
 
     @Override
@@ -120,6 +120,50 @@ public class Version implements Serializable, Compatible<Version>, Comparable<Ve
             }
         }
         return result;
+    }
+
+    public static class Builder {
+
+        private final MajorVersion majorVersion;
+        private final MinorVersion minorVersion;
+        private final PatchVersion patchVersion;
+        private PreReleaseVersion preReleaseVersion;
+        private BuildMetadata buildMetadata;
+
+        public Builder() {
+            this.majorVersion = new MajorVersion();
+            this.minorVersion = new MinorVersion();
+            this.patchVersion = new PatchVersion();
+        }
+
+        public Builder(long majorVersion, long minorVersion, long patchVersion) {
+            this.majorVersion = new MajorVersion(majorVersion);
+            this.minorVersion = new MinorVersion(minorVersion);
+            this.patchVersion = new PatchVersion(patchVersion);
+        }
+
+        public Builder preRelease(String preReleaseVersion) {
+            if (preReleaseVersion == null) {
+                this.preReleaseVersion = null;
+            } else {
+                this.preReleaseVersion = new PreReleaseVersion.Builder().add(preReleaseVersion).build();
+            }
+            return this;
+        }
+
+        public Builder buildMetadata(String buildMetadata) {
+            if (buildMetadata == null) {
+                this.buildMetadata = null;
+            } else {
+                this.buildMetadata = new BuildMetadata.Builder().add(buildMetadata).build();
+            }
+            return this;
+        }
+
+        public Version build() {
+            return new Version(majorVersion, minorVersion, patchVersion, preReleaseVersion, buildMetadata);
+        }
+
     }
 
 }

@@ -1,6 +1,6 @@
 package de.semver;
 
-import de.semver.parts.*;
+import de.semver.parts.VersionUtil;
 
 /**
  * Parses string version representation to a {@link Version} instance.
@@ -21,15 +21,11 @@ public class VersionParser {
     }
 
     public Version parse() {
-        final PreReleaseVersion preReleaseVersion = getPreReleasePart();
-        final BuildMetadata buildMetadata = getMetadataPart();
+        final String preReleaseVersion = getPreReleasePart();
+        final String buildMetadata = getMetadataPart();
         final String[] versionInfo = getVersionInfo();
-        return new Version(
-                new MajorVersion(Long.valueOf(versionInfo[0])),
-                new MinorVersion(Long.valueOf(versionInfo[1])),
-                new PatchVersion(Long.valueOf(versionInfo[2])),
-                preReleaseVersion,
-                buildMetadata);
+        return new Version.Builder(Long.valueOf(versionInfo[0]), Long.valueOf(versionInfo[1]),
+                Long.valueOf(versionInfo[2])).preRelease(preReleaseVersion).buildMetadata(buildMetadata).build();
     }
 
     private String[] getVersionInfo() {
@@ -51,22 +47,22 @@ public class VersionParser {
         return VersionUtil.split(version.substring(0, targetIndex));
     }
 
-    private PreReleaseVersion getPreReleasePart() {
+    private String getPreReleasePart() {
         final int preReleaseIndex = getPreReleaseIndex();
         if(preReleaseIndex > -1){
             final int metadataIndex = getMetadataIndex();
             if(metadataIndex > -1){
-                return new PreReleaseVersion.Builder().add(version.substring(preReleaseIndex + 1, metadataIndex)).build();
+                return version.substring(preReleaseIndex + 1, metadataIndex);
             }
-            return new PreReleaseVersion.Builder().add(version.substring(preReleaseIndex + 1)).build();
+            return version.substring(preReleaseIndex + 1);
         }
         return null;
     }
 
-    private BuildMetadata getMetadataPart() {
+    private String getMetadataPart() {
         final int metadataIndex = getMetadataIndex();
         if (metadataIndex > -1) {
-            return new BuildMetadata.Builder().add(version.substring(metadataIndex + 1)).build();
+            return version.substring(metadataIndex + 1);
         }
         return null;
     }
