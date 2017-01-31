@@ -31,4 +31,18 @@ class NumericalVersionPart implements VersionPart<Long> {
         throw new IllegalArgumentException("Cannot compare " + o.getClass().getSimpleName() + " value with " + this.getClass().getSimpleName() + " value.");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NumericalVersionPart)) return false;
+
+        NumericalVersionPart that = (NumericalVersionPart) o;
+
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (value ^ (value >>> 32));
+    }
 }

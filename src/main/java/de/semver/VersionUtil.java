@@ -1,7 +1,6 @@
 package de.semver;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public abstract class VersionUtil {
@@ -9,7 +8,7 @@ public abstract class VersionUtil {
     private static final String SEGMENT_SEPARATOR_REGEX = "\\.";
     private static final String SEGMENT_SEPARATOR = ".";
 
-    public static Collection<VersionPart> toVersionParts(String version) {
+    public static List<VersionPart> toVersionParts(String version) {
         String[] strParts = version.contains(SEGMENT_SEPARATOR)
                 ? split(version)
                 : new String[]{version};

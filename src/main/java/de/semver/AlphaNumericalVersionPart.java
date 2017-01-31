@@ -36,4 +36,19 @@ class AlphaNumericalVersionPart implements VersionPart<String> {
         }
         throw new IllegalArgumentException("Cannot compare " + o.getClass().getSimpleName() + " value with " + this.getClass().getSimpleName() + " value.");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AlphaNumericalVersionPart)) return false;
+
+        AlphaNumericalVersionPart that = (AlphaNumericalVersionPart) o;
+
+        return value != null ? value.equals(that.value) : that.value == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return value != null ? value.hashCode() : 0;
+    }
 }
