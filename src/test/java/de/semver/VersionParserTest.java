@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
+ * Tests version parsing of strings.
+ *
  * @author sdiedrichsen
  * @version $Id$
  * @since 29.01.17
@@ -24,10 +26,9 @@ public class VersionParserTest {
     }
 
     @Test(dataProvider = "versions")
-    public void testReturnsVersion(String v) throws Exception {
-        VersionParser p = new VersionParser(v);
-        final Version parsed = p.parse();
-        assertEquals(parsed.toString(), v, "Parser returned wrong version.");
+    public void returnsSameVersionAfterParsing(String version) {
+        final Version parsed = new Version.Builder(version).build();
+        assertEquals(parsed.toString(), version, "Parser returned wrong version.");
     }
 
 }

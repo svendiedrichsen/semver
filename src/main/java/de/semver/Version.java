@@ -142,6 +142,15 @@ public class Version implements Serializable, Compatible<Version>, Comparable<Ve
             this.patchVersion = new PatchVersion(patchVersion);
         }
 
+        public Builder(String version) {
+            final String[] versionInfo = getVersionInfo(version);
+            this.majorVersion = new MajorVersion(Long.valueOf(versionInfo[0]));
+            this.minorVersion = new MinorVersion(Long.valueOf(versionInfo[1]));
+            this.patchVersion = new PatchVersion(Long.valueOf(versionInfo[2]));
+            this.preRelease(getPreReleasePart(version));
+            this.buildMetadata(getMetadataPart(version));
+        }
+
         public Builder preRelease(String preReleaseVersion) {
             if (preReleaseVersion == null) {
                 this.preReleaseVersion = null;
@@ -162,6 +171,53 @@ public class Version implements Serializable, Compatible<Version>, Comparable<Ve
 
         public Version build() {
             return new Version(majorVersion, minorVersion, patchVersion, preReleaseVersion, buildMetadata);
+        }
+
+        private String[] getVersionInfo(String version) {
+            final int preReleaseIndex = getPreReleaseIndex(version);
+            final int metadataIndex = getMetadataIndex(version);
+            int targetIndex = -1;
+            if (preReleaseIndex > -1) {
+                if (metadataIndex > -1) {
+                    targetIndex = Math.min(preReleaseIndex, metadataIndex);
+                } else {
+                    targetIndex = preReleaseIndex;
+                }
+            } else if (metadataIndex > -1) {
+                targetIndex = metadataIndex;
+            }
+            if (targetIndex == -1) {
+                return VersionUtil.split(version);
+            }
+            return VersionUtil.split(version.substring(0, targetIndex));
+        }
+
+        private String getPreReleasePart(String version) {
+            final int preReleaseIndex = getPreReleaseIndex(version);
+            if (preReleaseIndex > -1) {
+                final int metadataIndex = getMetadataIndex(version);
+                if (metadataIndex > -1) {
+                    return version.substring(preReleaseIndex + 1, metadataIndex);
+                }
+                return version.substring(preReleaseIndex + 1);
+            }
+            return null;
+        }
+
+        private String getMetadataPart(String version) {
+            final int metadataIndex = getMetadataIndex(version);
+            if (metadataIndex > -1) {
+                return version.substring(metadataIndex + 1);
+            }
+            return null;
+        }
+
+        private int getMetadataIndex(String version) {
+            return version.indexOf(METADATA_SEPARATOR);
+        }
+
+        private int getPreReleaseIndex(String version) {
+            return version.indexOf(PRERELEASE_SEPARATOR);
         }
 
     }
