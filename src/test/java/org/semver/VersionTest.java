@@ -1,4 +1,4 @@
-package de.semver;
+package org.semver;
 
 import org.testng.annotations.Test;
 

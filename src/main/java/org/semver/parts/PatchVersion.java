@@ -1,6 +1,6 @@
-package de.semver.parts;
+package org.semver.parts;
 
-import de.semver.Compatible;
+import org.semver.Compatible;
 
 public class PatchVersion extends NumericalVersionPart implements Compatible<PatchVersion> {
 

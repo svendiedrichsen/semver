@@ -1,4 +1,4 @@
-package de.semver.parts;
+package org.semver.parts;
 
 import java.util.Arrays;
 import java.util.List;

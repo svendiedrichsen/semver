@@ -1,4 +1,4 @@
-package de.semver.parts;
+package org.semver.parts;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

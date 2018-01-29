@@ -1,6 +1,6 @@
-package de.semver.parts;
+package org.semver.parts;
 
-import de.semver.Compatible;
+import org.semver.Compatible;
 
 public class MajorVersion extends NumericalVersionPart implements Compatible<MajorVersion> {
 

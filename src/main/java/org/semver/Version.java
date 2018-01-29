@@ -1,6 +1,6 @@
-package de.semver;
+package org.semver;
 
-import de.semver.parts.*;
+import org.semver.parts.*;
 
 import java.io.Serializable;
 
